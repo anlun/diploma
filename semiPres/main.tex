@@ -63,11 +63,6 @@
 
 \section{Принтер-комбинаторы}
 
-\begin{frame}{Критерии красоты кода}
-  % TODO
-  TODO
-\end{frame}
-
 \begin{frame}{Комбинаторы}
   — это функции высшего порядка, которые из одних функций строят другие
  
@@ -103,6 +98,45 @@
 		\end{column}
 	\end{columns}
   \end{center}
+\end{frame}
+
+\begin{frame}{Принтер-комбинаторы}
+  \begin{itemize}
+    \item Pretty-Printing Combinators
+    \item Цель - форматированный вывод текста
+    \item Множество возможных представлений
+        \begin{itemize}
+           \item Оптимальность результата
+        \end{itemize}
+    \item Prettiness
+      \begin{itemize}
+        \item \textcolor{red}{Стиль} \textcolor{gray}{(style guide)}
+        \item Наглядность структуры
+        \item Обозримость \textcolor{gray}{(размер текста)}
+     \end{itemize}
+
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Множественность представлений (1)}
+  \begin{columns}
+    \begin{column}{0.65\linewidth}
+      \includegraphics[width = \linewidth]{images/ast.png}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Множественность представлений (2)}
+  \centering
+  \includegraphics[width = 0.2\linewidth]{images/ast.png}
+  \begin{columns}
+    \begin{column}{0.3\linewidth}
+      \inputminted{c}{codes/ast1.c}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \inputminted{c}{codes/ast2.c}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}{Wadler Doc}
@@ -182,7 +216,7 @@
 
 \begin{frame}{Azero, Swierstra ТТХ}
   \begin{itemize}
-    \item Работает в худшем случае за $O(e ^ n)$
+    \item Работает в худшем случае за $O(2 ^ n)$
     \item Выразительная способность достаточная для применения с шаблонами 
     \item Выдает оптимальный результат
     \begin{itemize}
@@ -231,8 +265,55 @@
       \item $k = 2, p = 2$
       \item Сложность: $O(w^4 * n)$ 
     \end{itemize}
+
+    \item \textcolor{gray}{$w \in 100\dots200$}
+    \item \textcolor{gray}{Скоро сложность возрастет до $O(w ^ 6 * n)$ }
+ 
     % \item Максимальный размер FormatSet: $m = O(w^2)$
     % \item Сложность операций Beside, Above: $O(m^2)$
+  \end{itemize}
+\end{frame}
+
+\section{Синтаксические шаблоны}
+
+\begin{frame}{Расширение модели комбинаторов}
+  Комбинатор Fill
+\end{frame}
+
+\begin{frame}{Реализация}
+  \begin{itemize}
+    \item Форматтер-плагин для IDEA
+    \item Написан на Kotlin
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Нерешенные проблемы}
+  \begin{itemize}
+    \item Обработка комментариев
+      \begin{itemize}
+        \item Возможно, шаблоны и для них, т.к. структура известна (JavaDoc, Doxygen) 
+      \end{itemize}
+    \item Списки (структуры с плавающим числом поддеревьев)
+      \begin{itemize}
+        \item Сейчас - фиксированное представление
+        \item Шаблонный переход от одного элемента к другому
+      \end{itemize}
+    \item Время работы
+      \begin{itemize}
+        \item сейчас - 4с
+        \item нужно  - 0.5с
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Направления развития}
+  \begin{itemize}
+    \item Абстрагирование от языка
+    \item Проверка репозитория шаблонов на полноту
+    \item Задание порядка поддеревьев
+      \begin{itemize}
+        \item Поля, методы, подклассы
+      \end{itemize}
   \end{itemize}
 \end{frame}
 
