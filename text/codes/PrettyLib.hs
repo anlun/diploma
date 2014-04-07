@@ -1,6 +1,7 @@
 import qualified Data.HashMap.Strict as Map
 import qualified Data.List as List
 import Format -- Format from Azero, Swierstra library
+import Doc    -- Doc    from Azero, Swierstra library
 
 type Variants = Map.HashMap Frame Format
 
