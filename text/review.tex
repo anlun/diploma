@@ -10,8 +10,65 @@
 Достаточная выразительная сила, но существующая реализация экспоненциальна
 относительно размеров входа.
 
+\subsection{Средства форматирования кода в IDE}
+
+\subsubsection{IDEA}
+adas
+\subsubsection{Eclipse}
+sdasd
+
 \subsection{BURS}
-Здесь будет определение BURS, из какой задачи оно появилось и т.д.
+Bottom-up rewrite systems (BURS)~\cite{burs} --- это метод динамического
+программирования на деревьях, изначально появившийся в контексте задачи выбора
+набора инструкций для генерации машинного кода. Основой BURS является
+регулярная древесная грамматика с весами, то есть грамматика со следющим
+набором правил: 
+
+$$
+\begin{array}{rcll}
+  N &:& \alpha& [c]\\
+  N &:& \alpha\; (K_1,\dots,K_n)& [c]
+\end{array}
+$$
+
+Здесь $N, K_i$ это нетерминалы, $\alpha$ --- терминал,
+$c$ --- функция цены, описанная для каждого правила.
+Similar to the ordinary \emph{``linear''} (or \emph{``word''}) grammar we distinguish certain starting 
+nonterminal $S$ 
+and say that terminal-labeled \emph{tree} is derivable in the given grammar if it can be constructed from 
+a single node labeled by $S$ using repetitive substitutions. Each substitution replaces (arbitrary) leaf 
+labeled by a nonterminal $N$ with a tree $\alpha\;(K_1,\dots,K_n)$ if there is a rule 
+$N:\alpha\;(K_1,\dots,K_n)$ in the grammar. The cost functions are used to calculate the overall cost 
+of a certain derivation. Each cost function can depend on the terminal label ($\alpha$) and the costs 
+of the derivations for each subtree.
+
+In the context of BURS we are interested in (arbitrary) least-cost derivation of a certain tree provided by 
+a certain grammar. This derivation can be found by a two-pass algorithm. 
+
+The first pass (\emph{labeling}) traverses the subject tree bottom-up and calculates for each its node
+the set of all triplets $(K,\;R,\;c)$, where $K$ --- nonterminal from which the subtree rooted at the given node
+can be derived, $R$ --- the first rule of the minimal derivation from $K$, $c$ --- the cost of this derivation.
+The labeling process is performed as follows:
+
+\begin{itemize}
+\item for each leaf node labeled by a terminal $\alpha$ we add into the set for this node a 
+triplet $(K,\;R,\;c\:(\alpha))$ for the each rule $R=K:\;\alpha\;[c]$;
+\item for an intermediate node labeled by a terminal $\alpha$ with immediate successors $v_1,\dots,v_n$ we
+add into the set for this node a triplet $(K,\;R,\;c\:(\alpha,c_1,\dots,c_n))$ for each rule 
+$R=K:\;\alpha\;(K_1,\dots,K_n)\;[c]$ such that there is a triplet $(K_i,\;R_i,\;c_i)$ in the labeling for
+the node $v_i$; if there are different suitable rules for the same nonterminal $K$ then we choose that 
+which delivers the minimal cost.
+\end{itemize}
+
+The second pass (\emph{reduce}) is a top-down traversal which makes use of the constructed labeling. The first
+rule of the minimal derivation is that from the triplet $(S,\;R,\;c)$ for the root node (if there is no such a
+triplet, then there is no derivation from $S$). This rule unambiguously determines the nonterminals $K_i$ for 
+each direct subtree of the root node and the process repeats.
+
+To perform labeling we potentially need to try each rule of the grammar for each node of the tree; given 
+the fixed grammar this results in $O\:(|R|)$ complexity, where $|R|$ is the number of rules  
+(the size of the set of triples is limited by the number of the nonterminals which is in turn not 
+greater then the number of rules). Reduce is linear as well.
 
 \subsection{Язык программирования Kotlin}
 
@@ -28,10 +85,3 @@ Kotlin был выбран для реализации принтер-плаги
 версиями языка,
 но обычно требуется внести небольшой набор исправлений для
 восстановления работоспособности.
-
-\subsection{Средства форматирования кода в IDE}
-
-\subsubsection{IDEA}
-adas
-\subsubsection{Eclipse}
-sdasd
