@@ -1,12 +1,15 @@
 \section{Обзор}
 
 \subsection{Принтер-комбинаторы}
-Все пустили корни из Oppen
-Есть линейная реализация, и реализация On-line и много чего еще, но слабая выразительная мощь.
+
+Простые, по завету Oppen. Есть линейная реализация, и реализация On-line и
+много чего еще, но слабая выразительная мощь.
 
 \subsection{Принтер-комбинаторы с выбором}
 Достаточная выразительная сила, но существующая реализация экспоненциальна
 относительно размеров входа.
+
+\subsubsection{Структура Format}
 
 \subsection{Средства форматирования кода в IDE}
 
@@ -19,7 +22,7 @@ sdasd
 Bottom-up rewrite systems (BURS)~\cite{burs} --- это метод динамического
 программирования на деревьях, изначально появившийся в контексте задачи выбора
 набора инструкций для генерации машинного кода. Основой BURS является
-регулярная древесная грамматика с весами, то есть грамматика со следющим
+регулярная древесная грамматика с весами, то есть грамматика со следующим
 набором правил: 
 
 $$
@@ -31,14 +34,17 @@ $$
 
 Здесь $N, K_i$ это нетерминалы, $\alpha$ --- терминал,
 $c$ --- функция цены, описанная для каждого правила.
-Similar to the ordinary \emph{``linear''} (or \emph{``word''}) grammar we distinguish certain starting 
-nonterminal $S$ 
-and say that terminal-labeled \emph{tree} is derivable in the given grammar if it can be constructed from 
-a single node labeled by $S$ using repetitive substitutions. Each substitution replaces (arbitrary) leaf 
-labeled by a nonterminal $N$ with a tree $\alpha\;(K_1,\dots,K_n)$ if there is a rule 
-$N:\alpha\;(K_1,\dots,K_n)$ in the grammar. The cost functions are used to calculate the overall cost 
-of a certain derivation. Each cost function can depend on the terminal label ($\alpha$) and the costs 
-of the derivations for each subtree.
+Как и для обычной линейной грамматики вводится стартовый
+нетерминал S. Считается, что терминальное дерево выводится в
+данной грамматике, если его можно получить с помощью правил
+подстановки из одноузлового дерева $S$.
+Каждая подстановка заменяет нетерминал $N$, находящийся в листе дерева, на дерево 
+$\alpha\;(K_1,\dots,K_n)$, если в грамматике есть правило
+$N:\alpha\;(K_1,\dots,K_n)$. 
+Для каждой подстановки вычисляется стоимость ее применения с помощью
+функции цены ($c$).
+Аргументами функции могут служить терминальная метка ($\alpha$) и стоимости
+вывода поддеревьев.
 
 In the context of BURS we are interested in (arbitrary) least-cost derivation of a certain tree provided by 
 a certain grammar. This derivation can be found by a two-pass algorithm. 
