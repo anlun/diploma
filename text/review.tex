@@ -45,34 +45,39 @@ $N:\alpha\;(K_1,\dots,K_n)$.
 функции цены ($c$).
 Аргументами функции могут служить терминальная метка ($\alpha$) и стоимости
 вывода поддеревьев.
+В контексте BURS задачи мы заинтересованы в поиске вывода наименьшей стоимости
+для заданного дерева по заданной грамматике.
+Такой вывод может быть найден двухпроходным алгоритмом.
 
-In the context of BURS we are interested in (arbitrary) least-cost derivation of a certain tree provided by 
-a certain grammar. This derivation can be found by a two-pass algorithm. 
-
-The first pass (\emph{labeling}) traverses the subject tree bottom-up and calculates for each its node
-the set of all triplets $(K,\;R,\;c)$, where $K$ --- nonterminal from which the subtree rooted at the given node
-can be derived, $R$ --- the first rule of the minimal derivation from $K$, $c$ --- the cost of this derivation.
-The labeling process is performed as follows:
+Первый проход (\emph{пометка}) обрабатывает дерево снизу вверх и вычисляет
+для каждого узла набор троек $(K,\;R,\;c)$, где $K$ --- нетерминал, из которого может быть
+выведено поддерево с корнем в обрабатываемом узле,
+$R$ --- первое правило, которое используется для вывода минимальной стоимости из $K$,
+$c$ --- стоимость такого вывода.
+Процесс пометки происходит следующим образом:
 
 \begin{itemize}
-\item for each leaf node labeled by a terminal $\alpha$ we add into the set for this node a 
-triplet $(K,\;R,\;c\:(\alpha))$ for the each rule $R=K:\;\alpha\;[c]$;
-\item for an intermediate node labeled by a terminal $\alpha$ with immediate successors $v_1,\dots,v_n$ we
-add into the set for this node a triplet $(K,\;R,\;c\:(\alpha,c_1,\dots,c_n))$ for each rule 
-$R=K:\;\alpha\;(K_1,\dots,K_n)\;[c]$ such that there is a triplet $(K_i,\;R_i,\;c_i)$ in the labeling for
-the node $v_i$; if there are different suitable rules for the same nonterminal $K$ then we choose that 
-which delivers the minimal cost.
+\item для листовой вершины, помеченной терминалом $\alpha$, в множество троек
+этого вершины добавляется $(K,\;R,\;c\:(\alpha))$ для каждого правила $R=K:\;\alpha\;[c]$;
+\item для промежуточной вершины, помеченной терминалом $\alpha$,
+с непосредственными поддеревьями $v_1,\dots,v_n$
+в множество добавляется тройка $(K,\;R,\;c\:(\alpha,c_1,\dots,c_n))$ для каждого правила
+$R=K:\;\alpha\;(K_1,\dots,K_n)\;[c]$, где $(K_i,\;R_i,\;c_i)$ входит в множество троек для
+$v_i$; если есть несколько правил вывода из нетерминала $K$, то выбирается правило,
+минимизирующее стоимость вывода.
 \end{itemize}
 
-The second pass (\emph{reduce}) is a top-down traversal which makes use of the constructed labeling. The first
-rule of the minimal derivation is that from the triplet $(S,\;R,\;c)$ for the root node (if there is no such a
-triplet, then there is no derivation from $S$). This rule unambiguously determines the nonterminals $K_i$ for 
-each direct subtree of the root node and the process repeats.
+Второй проход (\emph{свертка}) просматривает дерево сверху вниз, используя сделанные пометки.
+Первое правило из минимального вывода определяется тройкой $(S,\;R,\;c)$ для корневого узла
+(если такой тройки нет, то вывод из $S$ невозможен).
+Это правило однозначно определяет нетерминалы $K_i$ для каждого непосредственного поддерева
+и процесс повторяется.
 
-To perform labeling we potentially need to try each rule of the grammar for each node of the tree; given 
-the fixed grammar this results in $O\:(|R|)$ complexity, where $|R|$ is the number of rules  
-(the size of the set of triples is limited by the number of the nonterminals which is in turn not 
-greater then the number of rules). Reduce is linear as well.
+Для пометки дерева потенциально необходимо каждое правило грамматики применить к каждому узлу.
+При фиксированной грамматике алгоритмическая сложность первого прохода --- $O\:(|R|)$,
+где $|R|$ --- количество правил
+(размер множества троек для каждого узла ограничен числом нетерминалов, которое не больше,
+чем количество правил). Свертка также имеет линейную сложность.
 
 \subsection{Язык программирования Kotlin}
 
