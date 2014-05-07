@@ -11,6 +11,30 @@
 
 \newfontfamily{\cyrillicfonttt}{Liberation Mono}
 
+\lstdefinelanguage{haskell}{
+keywords={data, type, case, of, where, otherwise, in, let, deriving},
+sensitive=true,
+basicstyle=\small,
+commentstyle=\scriptsize\rmfamily,
+keywordstyle=\ttfamily\underbar,
+identifierstyle=\ttfamily,
+basewidth={0.5em,0.5em},
+columns=fixed,
+fontadjust=true,
+literate={->}{{$\to$}}1
+}
+
+\lstset{
+basicstyle=\small,
+identifierstyle=\ttfamily,
+keywordstyle=\bfseries,
+commentstyle=\scriptsize\rmfamily,
+basewidth={0.5em,0.5em},
+fontadjust=true,
+escapechar=~,
+language=haskell
+}
+
 \begin{document}
 \filltitle{ru}{
     chair              = {Кафедра Системного Программирования},
