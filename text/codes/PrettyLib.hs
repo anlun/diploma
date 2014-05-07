@@ -3,14 +3,13 @@ import qualified Data.List as List
 import Format -- Format from Azero, Swierstra library
 
 type Variants = Map.HashMap Frame Format
+type Doc = Int -> Variants
 
 update :: Format -> Variants -> Variants
 update fmt = Map.insertWith min (fmtToFrame fmt) fmt 
 
 checkUpdate :: Int -> Format -> Variants -> Variants
 checkUpdate n f = if isSuitable n f then update f else id
-
-type Doc = Int -> Variants
 
 text :: String -> Doc
 text s n = checkUpdate n (s2fmt s) Map.empty 
