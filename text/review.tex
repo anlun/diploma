@@ -1,14 +1,24 @@
 \section{Обзор предметной области}
 
+Одним из основных подходов к заданию принтеров являются принтер-комбинаторы.
+В этой главе приведен обзор классических принтер-комбинаторов, а также
+принтер-комбинаторов с дополнительным оператором \emph{выбора}, которые
+в рамках данной работы использованы для реализации принтеров, задаваемых
+с помощью шаблонов. Для решения проблем эффективности
+комбинаторов с выбором в данной работе был использован подход BURS.
+Апробация подхода задания принтеров с помощью шаблонов
+была произведена для языка Java, для которого есть средства форматирования,
+встроенные в IDE.
+
 \subsection{Принтер-комбинаторы}
 
 Базовыми принтер-комбинаторными библиотеками являются библиотеки
 Джона Хьюза\cite{hughes} и Филиппа Вадлера\cite{wadler}, которые
-представляют собой функциональную реализацию алгоритма
+представляют собой функциональную переработку алгоритма
 Оппена\cite{oppen}.
 Ограничимся рассмотрением библиотеки Вадлера, так как
-библиотека Хьюза не отличается принципиально
-в рамках данного рассуждения.
+библиотека Хьюза обладает теми же свойствами, которые принципиальны в контексте
+данной работы.
 
 В библиотеке ключевым типом является документ.
 Он представляет сущность, которая потом может
@@ -105,7 +115,7 @@ Library\footnote{\cd{http://www.cs.uu.nl/wiki/HUT/WebHome}}
 
 \begin{figure}
   \centering
-  \subfloat[Блок Format]{
+  \subfloat[Блок текста]{
     \raisebox{5mm}{
       \centering
       \vspace{0pt}
@@ -140,7 +150,7 @@ Library\footnote{\cd{http://www.cs.uu.nl/wiki/HUT/WebHome}}
   \label{fig:basicConcat}
 \end{figure}
 
-Для работы с \lstinline[language = Haskell]{Format} используется следующие четыре примитива:
+Для работы с блоками текста используется следующие четыре примитива:
 \begin{lstlisting}
     s2fmt     :: String -> Format
     indentFmt :: Int -> Format -> Format
@@ -148,7 +158,7 @@ Library\footnote{\cd{http://www.cs.uu.nl/wiki/HUT/WebHome}}
     besideFmt :: Format -> Format -> Format
 \end{lstlisting}
 
-Функция \lstinline[language = Haskell]{s2fmt} создает \lstinline[language = Haskell]{Format},
+Функция \lstinline[language = Haskell]{s2fmt} создает блок текста,
 состоящий из одной строчки; \lstinline[language = Haskell]{indentFmt} по блоку создает новый,
 сдвинутый на заданное число позиций. Действие примитивов композиции
 \lstinline[language = Haskell]{besideFmt} и \lstinline[language = Haskell]{aboveFmt}
@@ -162,7 +172,7 @@ Library\footnote{\cd{http://www.cs.uu.nl/wiki/HUT/WebHome}}
 принтера ему в соответствие ставится итоговое множество вариантов.
 
 Документ конструируется с помощью следующих комбинаторов, которые симметричны
-примитивам построения блоков \lstinline[language = Haskell]{Format}:
+примитивам построения блоков текста:
 \begin{lstlisting}
     text   :: String -> Doc
     indent :: Int -> Doc -> Doc
@@ -207,6 +217,8 @@ Library\footnote{\cd{http://www.cs.uu.nl/wiki/HUT/WebHome}}
 комбинаторов, использованных при его построении.
 В \cite{swiComb} приведены оптимизации для данной модели, но они
 не улучшают асимптотику решения для деревьев в общем случае.
+
+\input{burs}
 
 \newpage
 \subsection{Средства форматирования кода в IDE}
@@ -271,5 +283,3 @@ IDE\footnote{\cd{http://blog.jetbrains.com/idea/2014/01/intellij-idea-13-importi
 Например, обработка кода IntelliJ IDEA Community Edition занимает более часа
 у встроенного в IDEA форматтера.
 
-\newpage
-\input{burs}
