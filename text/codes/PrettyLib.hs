@@ -23,14 +23,12 @@ choice, beside, above :: Doc -> Doc -> Doc
 choice a b n = Map.foldl' (flip update) (b n) (a n)
 beside a b   = cross besideFmt a b
 above  a b   = cross aboveFmt  a b
+((>//<), (>|<), (>-<)) = (choice, beside, above)
 
 cross :: (Format -> Format -> Format) -> Doc -> Doc -> Doc
 cross f a b n = Map.foldl' bFold Map.empty (a n) where
  bFold m fa = Map.foldl' (flip $ checkUpdate n . f fa) m bv
  bv         = b n
-  
-(>//<), (>|<), (>-<) :: Doc -> Doc -> Doc
-((>//<), (>|<), (>-<)) = (choice, beside, above)
 
 pretty :: Int -> Doc -> String
 pretty n d = case Map.elems (d n) of

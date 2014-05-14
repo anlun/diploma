@@ -402,47 +402,42 @@ JavaDoc\footnote{\cd{http://java.sun.com/j2se/javadoc/}}
 \newpage
 \subsubsection{Анализ производительности}
 
-Для оценки производительности были рассмотрены самые большие исходные файлы
+Для оценки производительности были рассмотрены средние и большие исходные файлы
 проекта IntelliJ IDEA Community
 Edition\footnote{\cd{http://github.com/jetbrains/intellij-community/}}.
-Результаты производительности приведены в
+Средние файлы проекта имеют размер от 100-500 строк, большие --- несколько тысяч строк.
+Результаты производительности для средних и больших файлов приведены в
 таблице~\ref{tbl:pluginPerformanceTbl}.
 
 \begin{table}[h!]
 	\centering
 
-  \subfloat[Ширина 200] {
-    \centering
-    \begin{tabular}{c c c}
-    Имя файла & Количество строк & Время \\
+  % \subfloat[Ширина 200] {
+    % \centering
+    \begin{tabular}{c c c c}
+    Имя файла & Кол-во строк & Время (шир. 200) & Время (шир. 250) \\
     \hline
-    Messages.java & 2007 & 1.76 \\
-    UIUtil.java & 2808 & 1.56 \\
-    AbstractTreeUi.java & 5112 & 2.25 \\
-    EditorImpl.java & 6789 & 2.74 \\
-    ConcurrentHashMap.java & 7191 & 2.05 
-    \end{tabular}
-  }
-
-  \subfloat[Ширина 250] {
-    \centering
-    \begin{tabular}{c c c}
-    Имя файла & Количество строк & Время \\
+    SearchRequestCollector.java & 169 & 0.32 & 0.11\\
+    XDebugProcess.java & 236 & 0.04 & 0.03\\
+    InitialConfigurationDialog.java & 455 & 0.17 & 0.15 \\
+    QuickEditHandler.java & 504 & 0.29 & 0.23\\
+    PsiDirectoryImpl.java & 618 & 0.15 & 0.14\\
     \hline
-    Messages.java & 2007 & 1.01 \\
-    UIUtil.java & 2808 & 1.58 \\
-    AbstractTreeUi.java & 5112 & 2.68 \\
-    EditorImpl.java & 6789 & 2.93 \\
-    ConcurrentHashMap.java & 7191 & 2.03 \\
+    Messages.java & 2007 & 1.26 & 0.8 \\
+    UIUtil.java & 2808 & 1.36 & 1.21 \\
+    AbstractTreeUi.java & 5112 & 1.69 & 2.11 \\
+    EditorImpl.java & 6789 & 2.17 & 2.16\\
+    ConcurrentHashMap.java & 7191 & 1.42 & 1.39
     \end{tabular}
-  }
+  % }
 
-	\caption{Время форматирования файлов (в секундах)}
+  \caption{Время форматирования файлов (в секундах)}
 	\label{tbl:pluginPerformanceTbl}
 \end{table}
 
-Эти данные показывают, что принтер не дает комфортного времени
-для практического применения на больших файлах. Проблему производительности
+Эти данные показывают, что принтер может быть использован для
+форматирования малых и средних файлов, но на больших файлах время
+работы слишком велико для практического применения. Проблему производительности
 можно будет считать решенной, если время работы снизится до 0.5 секунд.
 
 \subsubsection{Открытые проблемы}
