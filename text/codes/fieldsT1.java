@@ -1,3 +1,3 @@
 private int a;
 public double b;
-protected string c; 
+protected String c; 
