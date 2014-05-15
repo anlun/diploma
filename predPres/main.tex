@@ -47,7 +47,9 @@
 	\titlepage
 \end{frame}
 
-\begin{frame}{Контекст задачи. Принтеры}
+\section{Контекст задачи}
+
+\begin{frame}{Принтеры}
 	Языковые процессоры
 
 	\begin{block}{}
@@ -57,16 +59,73 @@
 			\item Представление результата
 			% Часто результат - программа на другом языке
 			\begin{itemize}
-				\item \textcolor{red}{Код программы}
+				\item \textbf{Код программы}
 				\item ...
 			\end{itemize}
 		\end{itemize}
 	\end{block}
   
-  \textcolor{red}{Форматирование кода в IDE}
+  \textbf{Форматирование кода в IDE}
+
 \end{frame}
 
-\begin{frame}{Контекст задачи. Задание принтеров (1)}
+\begin{frame}{Требования на принтер}
+  \begin{itemize}
+    \item Соответствие стандарту кодирования
+      \begin{itemize}
+        \item GNU, BSD, PEP 8, Google Java Style...
+      \end{itemize}
+      \vfill
+    \item Ограничение на ширину вывода
+      \begin{itemize}
+        \item 60, 80, 150 символов в строке
+      \end{itemize}
+      \vfill
+    \item Обозримость текста
+      \begin{itemize}
+        \item \textbf{Оптимальное} представление занимает
+          минимальное число строк
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Декларативное описание принтеров}
+Задание принтеров с помощью примеров использования (эталонного кода)
+
+\begin{columns}
+  \begin{column}{0.4\linewidth}
+    \begin{columns}
+      \begin{column}{0.6\linewidth}
+        \scriptsize
+        \inputminted{java}{codes/whileEx.java}
+      \end{column}
+      \begin{column}{0.4\linewidth}
+        Эталон
+      \end{column}
+    \end{columns}
+    \hrule
+    \vspace{1mm}
+    \begin{columns}
+      \begin{column}{0.6\linewidth}
+        \includegraphics[width = \linewidth]{../semiPres/images/ast.png}
+      \end{column}
+      \begin{column}{0.4\linewidth}
+        Дерево
+      \end{column}
+    \end{columns}
+
+  \end{column}
+  \begin{column}{0.25\linewidth}
+    \scriptsize
+    \inputminted{java}{codes/whileRes.java}
+  \end{column}
+  \begin{column}{0.1\linewidth}
+    Вывод
+  \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Принтер-комбинаторы}
   \begin{itemize}
     \item Принтер-комбинаторы --- низкоуровневые примитивы обработки блоков текста
   \end{itemize}
@@ -77,23 +136,25 @@
     \begin{column}{0.3\linewidth}
       \centering
       \tikz{
-        \draw (0,0) -- (1,0) -- (1,0.2) -- (2,0.2) -- (2,1) -- (0, 1) -- cycle;
+        \draw[line width=2pt] (0,0) -- (1,0) -- (1,0.2) -- (2,0.2) -- (2,1) -- (0, 1) -- cycle;
       }
     \end{column}
     
     \begin{column}{0.3\linewidth}
       \centering
       \tikz{
-        \draw (0,0) -- (1,0) -- (1,0.2) -- (2,0.2) -- (2,1) -- (0, 1) -- cycle;
-        \draw (1.1,-0.9) -- (2.1,-0.9) -- (2.1,-0.7) -- (3.1,-0.7) -- (3.1,0.1) -- (1.1,0.1) -- cycle;
+        \draw[line width=2pt] (0,0) -- (1,0) -- (1,0.2) -- (2,0.2) -- (2,1) -- (0, 1) -- cycle;
+        \draw[line width=2pt]
+        (1.1,-0.9) -- (2.1,-0.9) -- (2.1,-0.7) -- (3.1,-0.7) -- (3.1,0.1) -- (1.1,0.1) -- cycle;
       }
     \end{column}
 
     \begin{column}{0.3\linewidth}
       \centering
       \tikz{
-        \draw (0,0) -- (1,0) -- (1,0.2) -- (2,0.2) -- (2,1) -- (0, 1) -- cycle;
-        \draw (0,-1.1) -- (1,-1.1) -- (1,-0.9) -- (2,-0.9) -- (2,-0.1) -- (0,-0.1) -- cycle;
+        \draw[line width=2pt] (0,0) -- (1,0) -- (1,0.2) -- (2,0.2) -- (2,1) -- (0, 1) -- cycle;
+        \draw[line width=2pt]
+        (0,-1.1) -- (1,-1.1) -- (1,-0.9) -- (2,-0.9) -- (2,-0.1) -- (0,-0.1) -- cycle;
       }
     \end{column}
   \end{columns}
@@ -102,54 +163,22 @@
 
   \begin{itemize}
     \item Комбинатор выбора
-    \item Оптимальность
-    \item Экспоненциальная сложность
+    \item Экспоненциальная сложность при оптимальном выводе
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Контекст задачи. Задание принтеров (2)}
-  Задание принтеров с помощью примеров использования (эталонного кода)
-
-  \begin{columns}
-    \begin{column}{0.4\linewidth}
-      \begin{columns}
-        \begin{column}{0.6\linewidth}
-          \scriptsize
-          \inputminted{java}{codes/whileEx.java}
-        \end{column}
-        \begin{column}{0.4\linewidth}
-          Эталон
-        \end{column}
-      \end{columns}
-      \hrule
-      \vspace{1mm}
-      \begin{columns}
-        \begin{column}{0.6\linewidth}
-          \includegraphics[width = \linewidth]{../semiPres/images/ast.png}
-        \end{column}
-        \begin{column}{0.4\linewidth}
-          Дерево
-        \end{column}
-      \end{columns}
- 
-    \end{column}
-    \begin{column}{0.25\linewidth}
-      \scriptsize
-      \inputminted{java}{codes/whileRes.java}
-    \end{column}
-    \begin{column}{0.1\linewidth}
-      Вывод
-    \end{column}
-  \end{columns}
-\end{frame}
+\section{Постановка задачи}
 
 \begin{frame}{Постановка задачи}
   \begin{itemize}
     \item Разработать эффективную принтер-комбинаторную библиотеку,
       пригодную для реализации принтеров на шаблонах
+      \vfill
     \item Апробировать метод декларативного задания принтеров для языка Java
   \end{itemize}
 \end{frame}
+
+\section{Решение}
 
 \begin{frame}{Полиномиальные принтер-комбинаторы}
   \begin{itemize}
@@ -160,8 +189,8 @@
         \item Было: $O(2^n)$
         \item Стало
           \begin{itemize}
-            \item Стандартный набор комбинаторов: $O(w ^ 4 * n)$
-            \item Расширенный набор комбинаторов: $O(w ^ 6 * n)$
+            \item Стандартный набор комбинаторов: $O(w ^ 4 \times n)$
+            \item Расширенный набор комбинаторов: $O(w ^ 6 \times n)$
           \end{itemize}
       \item $w$ --- ширина вывода
       \item $n$ --- размер дерева комбинаторов
@@ -184,6 +213,8 @@
     \item Реализация на Kotlin
   \end{itemize}
 \end{frame}
+
+\section{Планы и результаты}
 
 \begin{frame}{Планы для развития}
   \begin{itemize}
